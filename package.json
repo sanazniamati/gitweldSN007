@@ -1,6 +1,6 @@
 {
-  "name": "gitweldsn005",
-  "version": "0.2.0",
+  "name": "gitweldsn007",
+  "version": "0.1.0",
   "private": true,
   "keywords": [
     "react",
@@ -8,7 +8,7 @@
     "Shape",
     "events"
   ],
-  "description": "increase and decrease width and height and degree of shape when click on buttons",
+  "description": "increase and decrease distance between of shape when click on buttons",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
