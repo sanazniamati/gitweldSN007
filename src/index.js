@@ -4,21 +4,45 @@ import { Stage, Layer, Shape, Text, Group, Line } from "react-konva";
 
 const App = () => {
   const shapeRef = useRef();
-  let a = 100;
+  // (c,b) |-----------------|(a,b)
+  //       |                 /(a,q)
+  // (c,e) |---------------/(d,e)
+  let [a, setA] = useState(100);
   let b = 0;
   let c = 0;
-  let d = 80;
-  let e = 50;
-  let grad = 45;
+  let [d, setD] = useState(80);
+  let [e, setE] = useState(50);
+  const [grad, setGrad] = useState(45);
+  let initialQ = e - Math.tan((grad * Math.PI) / 180) * (a - d);
+  let [q, setQ] = useState(initialQ);
   let [f, setF] = useState(350);
   let [g, setG] = useState(110);
-  let initialQ = e - Math.tan((grad * Math.PI) / 180) * (a - d);
-  let q = initialQ;
-  let initialWidth1 = a - c;
-  let initialWidth2 = d - c;
-  let initialHeight1 = e - b;
-  let initialHeight2 = q - b;
 
+  useEffect(() => {
+    setQ(initialQ);
+  }, [grad]);
+  const handelIncWidth = () => {
+    setA(a + 15);
+    setD(d + 15);
+  };
+  const handelDecWidth = () => {
+    setA(a - 15);
+    setD(d - 15);
+  };
+  const handelIncHeight = () => {
+    setE(e + 15);
+    setQ(q + 15);
+  };
+  const handelDecHeight = () => {
+    setE(e - 15);
+    setQ(q - 15);
+  };
+  const handelIncDegree = () => {
+    setGrad(grad + 5);
+  };
+  const handelDecDegree = () => {
+    setGrad(grad - 5);
+  };
   const handelIncDistance = () => {
     setF(() => f + 5);
     setG(() => g - 5);
@@ -30,6 +54,21 @@ const App = () => {
 
   return (
     <Fragment>
+      <div>
+        <label>width : </label>
+        <button onClick={handelIncWidth}>+</button>
+        <button onClick={handelDecWidth}>-</button>
+      </div>
+      <div>
+        <label>height : </label>
+        <button onClick={handelIncHeight}>+ </button>
+        <button onClick={handelDecHeight}>-</button>
+      </div>
+      <div>
+        <label>degree : </label>
+        <button onClick={handelIncDegree}>+ </button>
+        <button onClick={handelDecDegree}>-</button>
+      </div>
       <div>
         <label>distance : </label>
         <button onClick={handelIncDistance}>+ </button>
@@ -63,28 +102,28 @@ const App = () => {
             <Text
               x={g + (a - c) / 2}
               y={b}
-              text={initialWidth1.toString()}
+              text={(a - c).toString()}
               fontSize={8}
               fill={"red"}
             />
             <Text
               x={g + (d - c) / 2}
               y={e + 10}
-              text={initialWidth2.toString()}
+              text={(d - c).toString()}
               fontSize={8}
               fill={"red"}
             />
             <Text
               x={g - 10}
               y={(e - b) / 2}
-              text={initialHeight1.toFixed(0)}
+              text={(e - b).toFixed(0)}
               fontSize={8}
               fill={"red"}
             />
             <Text
               x={g + a}
               y={(q - b) / 2}
-              text={initialHeight2.toFixed(0)}
+              text={(q - b).toFixed(0)}
               fontSize={8}
               fill={"red"}
             />
